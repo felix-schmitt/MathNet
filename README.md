@@ -6,13 +6,13 @@ Printed mathematical expression recognition (MER) models are usually trained and
 
 ## im2latexv2
 
-You can download the im2latexv2 dataset from Zenodo (Part 1: 10.5281/zenodo.11230382, Part 2: 10.5281/zenodo.11296280)
+You can download the im2latexv2 dataset from Zenodo ([Part 1](https://zenodo.org/records/11230382): 10.5281/zenodo.11230382, [Part 2](https://zenodo.org/records/11296280): 10.5281/zenodo.11296280)
 
 ## realFormula
 
-You can download the realFormula dataset from Zenodo (doi: 10.5281/zenodo.11296815)
+You can download the realFormula dataset from [Zenodo](https://zenodo.org/records/11296815) (doi: 10.5281/zenodo.11296815)
 
-## Inference a Pretrained Model
+## Inference using a Pretrained Model
 
 Get the model from [dropbox](https://www.dropbox.com/scl/fo/xefqjzfd8szj6ra3f02hc/APcpMTDcRdp6sf3ZRCYkyOA?rlkey=5z9xlok8zwk87htnv57b7n9i7&st=umuhu5i3&dl=0) and save it in the trainedModels folder. 
 You can inference an image with the [inference.py](inference.py) script. The image should have ideally a solution of 600 DPI by a font size of 12. 
