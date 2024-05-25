@@ -1,0 +1,7 @@
+dataset_path: data/im2latexv2
+encoding: ISO-8859-1
+csv: True
+train: [["", "im2latexv2_train_normalized2.csv"]]
+val: [["", "im2latexv2_validate_normalized2.csv"]]
+test: [["", "im2latexv2_test_normalized2.csv"]]
+dpi: 600

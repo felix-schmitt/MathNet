@@ -1,0 +1,135 @@
+dataset:
+  train:
+    file: [ dataset-im2latexv2.yaml ]
+    cache: False
+    shuffle: True
+    drop_last: True
+    batch_size: 36
+    num_workers: 15
+    transforms: ["AddWhitespace", "RandomResize", "WhiteBorder", "DownUpResize", "GaussianBlur", "ColorJitter",
+                 "White2Black"]
+    no_sampling: False
+    no_arrays: False
+    only_basic: False
+    normalize: False
+  val:
+    file: [ dataset-im2latexv2.yaml ]
+    cache: False
+    shuffle: False
+    drop_last: False
+    batch_size: 36
+    num_workers: 15
+    transforms: ["WhiteBorder", "White2Black"]
+    no_sampling: False
+    no_arrays: False
+    only_basic: True
+    normalize: False
+  test:
+    files:
+      im2latexv2: [dataset-im2latexv2.yaml]
+      im2latex: [ config-im2latex-kaggle.yaml ]
+      im2latex600: [ config-im2latex-kaggle-600.yaml ]
+    cache: False
+    shuffle: False
+    drop_last: False
+    batch_size: 36
+    num_workers: 15
+    transforms: ["WhiteBorder", "White2Black"]
+    no_sampling: False
+    no_arrays: False
+    only_basic: False
+    normalize: False
+  vocab_file: data/vocabs/im2latexv2.vocab
+  dpi: 600
+model:
+  model_save_path: checkpoints/
+  max_len: 150  # 150, 485 for linear
+  image:
+    height: 768  # A4: 2300
+    width: 2400  # 800 A4: 1700
+  encoder: 'CvT'  # choose between cnn, vit, wav2vec2
+  encoder_emb: 384  # 512
+  decoder: 'transformer'  # choose between linear, transformer
+  softmax: true
+  counting: false
+  vit:
+    arch: vit_tiny_math
+    patch_size: 16
+    dropout: 0
+    emb_dropout: 0
+    dim: 512
+    depth: 1
+    heads: 2
+    mlp_dim: 1024
+    channels: 1
+  cvt:
+    s1_emb_dim: 64  # stage 1 - dimension
+    s1_emb_kernel: 48  # stage 1 - conv kernel
+    s1_emb_stride: 12  # stage 1 - conv stride
+    s1_proj_kernel: 3  # stage 1 - attention ds-conv kernel size
+    s1_kv_proj_stride: 2  # stage 1 - attention key / value projection stride
+    s1_heads: 1  # stage 1 - heads
+    s1_depth: 1  # stage 1 - depth
+    s1_mlp_mult: 4  # stage 1 - feedforward expansion factor
+    s2_emb_dim: 192  # stage 2 - (same as above)
+    s2_emb_kernel: 3
+    s2_emb_stride: 2
+    s2_proj_kernel: 3
+    s2_kv_proj_stride: 2
+    s2_heads: 3
+    s2_depth: 2
+    s2_mlp_mult: 4
+    s3_emb_kernel: 3
+    s3_emb_stride: 2
+    s3_proj_kernel: 3
+    s3_kv_proj_stride: 2
+    s3_heads: 4
+    s3_depth: 10
+    s3_mlp_mult: 4
+    dropout: 0.
+  cnn:
+    deformable_cnn: []
+    num_layers: 5  # 3
+    in_channels: 1
+    kernel_size: 3
+    stride: 1
+    padding: 1
+  transformer:
+    num_decoder_layers: 4
+    hidden_size: 512  # 512
+    n_head: 8
+    dropout: 0.1
+  wav2vec2:
+    config_file: 'configs/pretrain-wav2vec.yaml'
+    model: 'checkpoints/wav2vec/model/epoch_25.pt'
+train:
+  epochs: 200
+  init_lr: 0.0001  # 0.0001 * batch_size/48
+  lr_descent: [10000, 1]
+  criterion: CrossEntropyLoss
+  save_each: 5
+  early_stop: 200
+  wait_n_epochs: 30
+  fp16: true
+  grad_clip_value: null
+  freeze_feature_extractor: -1
+  freeze_encoder: -1
+  predict_style: False
+  style_loss_factor: 1
+val:
+  each: 5
+  more_information: true
+  metric: Edit
+test:
+  each: 10
+  more_information: true
+wandb:
+  use: true
+  project: Formula Recognition
+  tags: [im2latexv2, vit]
+  group: im2latexv2
+  name: im2latexv2-cvt
+  table: true
+  n_errors: 10
+  log_gradients: false
+  train_image: null

@@ -1,0 +1,5 @@
+dataset_path: data/im2latex-kaggle
+encoding: ISO-8859-1
+csv: True
+test: [["","im2latexv2_test_normalized2.csv"]]
+dpi: 600

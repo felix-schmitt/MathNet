@@ -1,0 +1,5 @@
+dataset_path: "data/realFormula"
+encoding: ISO-8859-1
+csv: True
+test: [["img-corrected", "test-corrected_normalized.csv"]]
+dpi: 600

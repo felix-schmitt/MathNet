@@ -1,0 +1,7 @@
+dataset_path: data/im2latex-kaggle
+encoding: ISO-8859-1
+csv: True
+train: [[formula_images_processed, im2latex_train.csv]]
+val: [[formula_images_processed, im2latex_validate.csv]]
+test: [[formula_images_processed, im2latexv2_test_formulae_normalized2.csv]]
+dpi: 100
