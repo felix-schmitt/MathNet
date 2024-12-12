@@ -1,11 +1,9 @@
 import torch
-import yaml
 from vit_pytorch import ViT
 from model_parts.cvt import CvT
 from tools.utils import get_accuracy
 from model_parts.regionvit import RegionViT
 from model_parts.swin_transformer_v2 import SwinTransformerV2
-from wav2vec.wav2vec2 import Wav2Vec2Model
 from model_parts.CNNEncoder import CNNEncoder
 from model_parts.TransformerDecoder import DecoderTransformer
 
@@ -52,13 +50,6 @@ class model(torch.nn.Module):
                 embed_dim=int(self.config['model']['encoder_emb']/(2**(len(self.config['model']['swin']['depths'])-1)))
                 , **self.config['model']['swin']
             ).to(self.config['device'])
-        elif self.config['model']['encoder'] == 'wav2vec2':
-            with open(self.config['model']['wav2vec2']['config_file']) as f:
-                wav2vec_config = yaml.load(f, yaml.loader.SafeLoader)
-            self.encoder = Wav2Vec2Model(wav2vec_config['model']['wav2vec2']).to(self.config['device'])
-            ckpt = torch.load(self.config['model']['wav2vec2']['model'], map_location='cpu')
-            self.encoder.load_state_dict(ckpt['encoder'], strict=False)
-            self.config['model']['encoder_emb'] = wav2vec_config['model']['wav2vec2']['encoder_embed_dim']
         else:
             raise Exception(f"encoder {self.config['model']['encoder']} not available, please choose one of [cnn, vit, wav2vec2]")
         if self.config['model']['decoder'] == 'transformer':
