@@ -12,6 +12,14 @@ You can download the im2latexv2 dataset from Zenodo ([Part 1](https://zenodo.org
 
 You can download the realFormula dataset from [Zenodo](https://zenodo.org/records/11296815) (doi: 10.5281/zenodo.11296815)
 
+## Prerequisites
+We used the Python version 3.8.17.
+
+Install the dependencies
+```shell
+    pip install -r requirements.txt
+```
+
 ## Inference using a Pretrained Model
 
 The naming of the vit-pytorch models has been changed (a warning about missing keys is issued when loading the model). 
@@ -19,9 +27,16 @@ To run the model from dropbox, you have to install vit-pytorch==0.40.2.
 Get the model from [dropbox](https://www.dropbox.com/scl/fo/xefqjzfd8szj6ra3f02hc/APcpMTDcRdp6sf3ZRCYkyOA?rlkey=5z9xlok8zwk87htnv57b7n9i7&st=umuhu5i3&dl=0) and save it in the trainedModels folder. 
 You can inference an image with the [inference.py](inference.py) script. The image should have ideally a solution of 600 DPI by a font size of 12. 
 
+```shell
+    python inference.py
+```
+
 ## Train a New Model
 Adapt the [config file](configs/im2latexv2-cvt.yaml) and the [dataset config file](configs/datasets/dataset-im2latexv2.yaml) if required.
 
+```shell
+    python train.py --task train --config configs/im2latexv2-cvt.yaml --turn-off-wandb
+```
 
 ## License
 This work is licensed under a
