@@ -66,7 +66,7 @@ if __name__ == '__main__':
     }
     config = load_config(model_files['config'], False)
     config['dataset']['vocab_file'] = model_files['vocab']
-    image = cv2.imread('data/im2latexv2/basic/test/img2-grey/1a0aa88013_basic.png')  # image for inference
+    image = cv2.imread('data/test.png')  # image for inference
     model = Inference(config, model_files['ckpt'])
     altText = model.forward(image)
     print(altText)
