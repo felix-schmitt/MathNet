@@ -27,8 +27,8 @@ dataset:
   test:
     files:
       im2latexv2: [dataset-im2latexv2.yaml]
-      im2latex: [ config-im2latex-kaggle.yaml ]
-      im2latex600: [ config-im2latex-kaggle-600.yaml ]
+      # kaggle dataset im2latex: [ config-im2latex-kaggle.yaml ]
+      # kagle dataset resized im2latex600: [ config-im2latex-kaggle-600.yaml ]
     cache: False
     shuffle: False
     drop_last: False
